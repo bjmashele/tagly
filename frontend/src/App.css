@@ -1,3 +1,7 @@
+:root {
+  --section-width: 22vw;
+}
+
 .App {
   padding: 0;
   margin: 0;
@@ -20,6 +24,14 @@
   pointer-events: none;
 }
 
+.line {
+  font-size: 1em;
+  color: rgb(120, 120, 120);
+}
+
+.title {
+  padding-top: 0.5em;
+}
 .text:hover {
   color: #f0a500;
   cursor: pointer;
@@ -47,7 +59,7 @@
 }
 
 .bookmark {
-  width: 40vw;
+  width: var(--section-width);
   height: 15vw;
   background-color: white;
   display: grid;
@@ -79,9 +91,9 @@
 
 .bookmark-tag-item {
   margin: 1em 1em 0 1em;
-  background-color: #f0eee4;
+  background-color: #ecf4f3;
   height: 1.5em;
-  paddin-top: -0.75em;
+  padding: -0.75em 0.25em 0 0.25em;
   align-content: center;
   border-radius: 20%;
 }
@@ -117,6 +129,41 @@
   margin-right: 5em;
 }
 
+.aside-tags {
+  display: flex;
+  flex-direction: column;
+  min-width: 35vh;
+}
+
+.tag-status {
+  background-color: #ffffff;
+  height: 15vh;
+  min-width: var(--section-width);
+}
+
+.tag-list {
+  background-color: #ffffff;
+  min-height: 45vh;
+  margin: 10px 0px 10px 0px;
+}
+.aside-tag-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+
+  justify-items: start;
+  margin-bottom: 0.5em;
+}
+
+.aside-tag-item-name {
+  margin-left: -1.5em;
+}
+
+.aside-tag-item-count {
+}
+.tag-visibility {
+  background-color: #ffffff;
+  height: 25vh;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
