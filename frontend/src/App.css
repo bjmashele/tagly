@@ -3,15 +3,15 @@
   margin: 0;
   display: grid;
   width: 100%;
-  height: 100vw;
+  height: 100vh;
   text-align: center;
   font-family: bookman, "Andale Mono", monospace;
   font-size: 18px;
   font-weight: bold;
   color: #41444b;
   background-color: #ecf4f3;
-
-
+  justify-content: center;
+  align-content: center;
 }
 
 .App-logo {
@@ -20,7 +20,7 @@
 }
 
 .text:hover {
-  color: #f0a500
+  color: #f0a500;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -31,7 +31,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 10vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,6 +42,47 @@
 
 .App-link {
   color: #61dafb;
+}
+
+.bookmark {
+  width: 40vw;
+  height: 15vw;
+  background-color: white;
+  display: grid;
+  grid-template-rows: 1fr 65px;
+  grid-template-columns: 150px 1fr;
+  grid-template-areas: "bookmark-image bookmark-main"
+    "bookmark-footer bookmark-footer";
+}
+
+.bookmark-image {
+  grid-area: bookmark-image;
+  background-color: yellow;
+}
+
+.bookmark-main {
+  grid-area: bookmark-main;
+  text-align: left;
+  padding-left: 1em
+}
+
+
+.bookmark-about {}
+
+.bookmark-footer {
+  grid-area: bookmark-footer;
+
+}
+
+.bookmark-footer-content {
+  display: flex;
+  /* flex-direction: horizontal; */
+  /* align-content: center; */
+  padding: 1em
+}
+
+.created-on {
+  margin-right: 2em;
 }
 
 @keyframes App-logo-spin {

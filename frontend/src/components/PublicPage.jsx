@@ -10,6 +10,7 @@ const Header = () => {
         // bg="#dbdbdb"
         height="7vh"
         alignItems="center"
+        sx={{ display: "grid", width: "100%", justifyContent: "center" }}
       >
         <Text
           p={2}
