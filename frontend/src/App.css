@@ -12,6 +12,7 @@
   background-color: #ecf4f3;
   justify-content: center;
   align-content: center;
+  color: rgb(120, 120, 120);
 }
 
 .App-logo {
@@ -51,38 +52,48 @@
   display: grid;
   grid-template-rows: 1fr 65px;
   grid-template-columns: 150px 1fr;
-  grid-template-areas: "bookmark-image bookmark-main"
+  grid-template-areas:
+    "bookmark-image bookmark-main"
     "bookmark-footer bookmark-footer";
 }
 
 .bookmark-image {
   grid-area: bookmark-image;
-  background-color: yellow;
 }
 
 .bookmark-main {
   grid-area: bookmark-main;
   text-align: left;
-  padding-left: 1em
+  padding-left: 1em;
 }
 
-
-.bookmark-about {}
+.bookmark-about {
+}
 
 .bookmark-footer {
   grid-area: bookmark-footer;
-
+  display: flex;
+  padding: 1em;
 }
 
-.bookmark-footer-content {
+.bookmark-footer-start {
   display: flex;
   /* flex-direction: horizontal; */
   /* align-content: center; */
-  padding: 1em
+}
+
+.bookmark-footer-end {
+  /* display: flex; */
+
+  justify-content: flex-end;
 }
 
 .created-on {
-  margin-right: 2em;
+  margin-right: 1.5em;
+}
+
+.bookmark-url {
+  margin-right: 5em;
 }
 
 @keyframes App-logo-spin {
