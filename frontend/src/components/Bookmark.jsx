@@ -12,8 +12,15 @@ const bookmarkData = {
   url: "reflectoring.io",
 };
 
+const BookmarkTabs = ({ tags }) =>
+  tags.map((tag, index) => (
+    <div className="bookmark-tag-item" key={index}>
+      {tag}
+    </div>
+  ));
 function Bookmark(props) {
   const { title, image, about, tags, createdOn, url } = bookmarkData;
+
   return (
     <div className="bookmark" style={{ width: "40vw" }}>
       <div className="bookmark-image">
@@ -23,6 +30,9 @@ function Bookmark(props) {
         <h3 className="text">{title}</h3>
         <div className="bookmark-about ">"{about}"</div>
       </div>
+      <section className="bookmark-tags">
+        <BookmarkTabs tags={tags} />
+      </section>
       <div className="bookmark-footer">
         <div className="bookmark-footer-start">
           <div className="created-on">{createdOn}</div>

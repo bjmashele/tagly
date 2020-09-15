@@ -22,6 +22,7 @@
 
 .text:hover {
   color: #f0a500;
+  cursor: pointer;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -50,10 +51,11 @@
   height: 15vw;
   background-color: white;
   display: grid;
-  grid-template-rows: 1fr 65px;
+  grid-template-rows: 1fr 65px 65px;
   grid-template-columns: 150px 1fr;
   grid-template-areas:
     "bookmark-image bookmark-main"
+    "bookmark-tags  bookmark-tags"
     "bookmark-footer bookmark-footer";
 }
 
@@ -70,10 +72,29 @@
 .bookmark-about {
 }
 
+.bookmark-tags {
+  grid-area: bookmark-tags;
+  display: flex;
+}
+
+.bookmark-tag-item {
+  margin: 1em 1em 0 1em;
+  background-color: #f0eee4;
+  height: 1.5em;
+  paddin-top: -0.75em;
+  align-content: center;
+  border-radius: 20%;
+}
+
+.bookmark-tag-item:hover {
+  color: #f0a500;
+  cursor: pointer;
+}
 .bookmark-footer {
   grid-area: bookmark-footer;
   display: flex;
-  padding: 1em;
+  padding: 0 1em 1em 1em;
+  margin-top: -1em;
 }
 
 .bookmark-footer-start {
