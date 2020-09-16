@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { BsPencil, BsTrash } from "react-icons/bs";
 import devops from "../assets/devops.png";
+import tagly from "../assets/tagly-icon.svg";
 //dev
 const bookmarkData = {
   image: "",
@@ -12,26 +13,28 @@ const bookmarkData = {
   url: "reflectoring.io",
 };
 
-const BookmarkTabs = ({ tags }) =>
+const BookmarkTags = ({ tags }) =>
   tags.map((tag, index) => (
     <div className="bookmark-tag-item" key={index}>
       {tag}
     </div>
   ));
 function Bookmark(props) {
-  const { title, image, about, tags, createdOn, url } = bookmarkData;
+  const { title, image, about, tags, createdOn, url } = props.bookmark;
 
+  console.log("Tags: ", JSON.stringify(tags));
+  const imageSrc = image ? image : tagly;
   return (
     <div className="bookmark" style={{ width: "40vw" }}>
       <div className="bookmark-image">
-        <img src={devops} alt="IMAGE" height="140px" />
+        <img src={imageSrc} alt="IMAGE" height="140px" />
       </div>
       <div className="bookmark-main">
         <h3 className="text">{title}</h3>
         <div className="bookmark-about ">"{about}"</div>
       </div>
       <section className="bookmark-tags">
-        <BookmarkTabs tags={tags} />
+        {/* <BookmarkTags tags={tags} /> */}
       </section>
       <div className="bookmark-footer">
         <div className="bookmark-footer-start">
