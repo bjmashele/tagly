@@ -55,7 +55,7 @@
 }
 
 .App-link {
-  color: #61dafb;
+  color: #f0a500;
 }
 .home-page {
   display: grid;
@@ -76,7 +76,7 @@
 
 .nav {
   grid-area: nav;
-  background-color: #61dafb;
+  background-color: #f0a500;
   position: sticky;
   top: 0;
   overflow: hidden;
@@ -215,7 +215,7 @@
 }
 .tag-visibility {
   background-color: #ffffff;
-  height: 100px;
+  height: 125px;
   min-width: var(--section-width);
 }
 @keyframes App-logo-spin {

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { GoGlobe, GoLock } from "react-icons/go";
 
 const TagList = function ({ tagsMeta }) {
   return (
@@ -21,7 +22,7 @@ const TagList = function ({ tagsMeta }) {
     </li> */
 }
 
-function AsideTags(props) {
+function AsideTags({ tagsMetaData }) {
   let tagsMeta = [
     { name: "DevOps", count: 4 },
     { name: "AWS", count: 2 },
@@ -39,10 +40,27 @@ function AsideTags(props) {
         <div className="title">TAGS</div>
         <hr className="line" />
 
-        <TagList tagsMeta={tagsMeta} />
+        <TagList tagsMeta={tagsMetaData} />
       </div>
       <div className="tag-visibility">
         <div className="title">VISIBILITY</div> <hr className="line" />
+        <ul>
+          <li className="aside-tag-item">
+            <i className="aside-tag-item-name">
+              <GoGlobe /> Public
+            </i>
+            <div className="aside-tag-item-count">{3}</div>
+          </li>
+          <li className="aside-tag-item">
+            <span>
+              <i className="aside-tag-item-name">
+                <GoLock /> Private
+              </i>
+            </span>
+
+            <div className="aside-tag-item-count">{3}</div>
+          </li>
+        </ul>
       </div>
     </div>
   );

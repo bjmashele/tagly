@@ -5,6 +5,7 @@ import BookmarkList from "../components/BookmarkList";
 
 //mock data
 import { bookmarkListData } from "../mock-data/mockState";
+import { tagsMetaData } from "../mock-data/mockState";
 
 export default function HomeContainer() {
   console.log("BM List Data: ", JSON.stringify(bookmarkListData));
@@ -13,7 +14,7 @@ export default function HomeContainer() {
       <div className="nav">Navbar</div>
       <div className="header">Header</div>
       <div className="aside-left">
-        <AsideTags />
+        <AsideTags tagsMetaData={tagsMetaData} />
       </div>
       <div className="main">
         <BookmarkList bookmarkListData={bookmarkListData} />

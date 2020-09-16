@@ -26,3 +26,10 @@ export const bookmarkListData = [
     url: "reflectoring.io",
   },
 ];
+
+export const tagsMetaData = [
+  { name: "DevOps", count: 5 },
+  { name: "AWS", count: 2 },
+  { name: "JAVA", count: 3 },
+  { name: "Spring Boot", count: 1 },
+];
