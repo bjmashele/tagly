@@ -7,15 +7,15 @@
   margin: 0;
   display: grid;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   text-align: center;
   font-family: bookman, "Andale Mono", monospace;
   font-size: 18px;
   font-weight: bold;
   color: #41444b;
   background-color: #ecf4f3;
-  justify-content: center;
-  align-content: center;
+  /* justify-content: center;
+  align-content: center; */
   color: rgb(120, 120, 120);
 }
 
@@ -57,10 +57,53 @@
 .App-link {
   color: #61dafb;
 }
+.home-page {
+  display: grid;
+  grid-template-rows: 10vh 15vh 1fr 10vh;
+  grid-template-columns: 5vw 20vw 40vw 1fr;
+  grid-column-gap: 3vw;
+  grid-row-gap: 3vh;
+  grid-template-areas:
+    "nav nav nav nav"
+    "header header header header"
+    "aside-left-space aside-left main aside-right"
+    "footer footer footer footer";
+}
 
+.main {
+  grid-area: main;
+  background-color: coral;
+}
+
+.nav {
+  grid-area: nav;
+  background-color: #61dafb;
+  position: sticky;
+  top: 0;
+  overflow: hidden;
+}
+.header {
+  grid-area: header;
+}
+
+.aside-left-space {
+  grid-area: aside-left-space;
+}
+.aside-left {
+  grid-area: aside-left;
+}
+
+.aside-right {
+  grid-area: aside-right;
+}
+
+.footer {
+  grid-area: footer;
+  background-color: darkslategrey;
+}
 .bookmark {
   width: var(--section-width);
-  height: 15vw;
+  max-height: 20vw;
   background-color: white;
   display: grid;
   grid-template-rows: 1fr 65px 65px;
@@ -132,7 +175,7 @@
 .aside-tags {
   display: flex;
   flex-direction: column;
-  min-width: 35vh;
+  min-width: 35vw;
 }
 
 .tag-status {
@@ -144,6 +187,7 @@
 .tag-list {
   background-color: #ffffff;
   min-height: 45vh;
+  min-width: var(--section-width);
   margin: 10px 0px 10px 0px;
 }
 .aside-tag-item {
@@ -154,6 +198,9 @@
   margin-bottom: 0.5em;
 }
 
+.aside-tag-item:hover {
+  background-color: beige;
+}
 .aside-tag-item-name {
   margin-left: -1.5em;
 }
@@ -162,7 +209,8 @@
 }
 .tag-visibility {
   background-color: #ffffff;
-  height: 25vh;
+  height: 100px;
+  min-width: var(--section-width);
 }
 @keyframes App-logo-spin {
   from {
