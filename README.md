@@ -1,1 +1,1 @@
-# A web app for managing links
+# A web app for managing bookmarks
