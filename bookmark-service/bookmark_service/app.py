@@ -4,13 +4,13 @@ from flask_restplus import Api
 
 
 def create_app():
-    from bookmarks_service.api_namespace import api_namespace
+    from bookmark_service.api_namespace import api_namespace
 
     application = Flask(__name__)
     api = Api(application, version='0.1', title='Bookmarks Backend API',
               description='Version 1 of Bookmarks API')
 
-    from bookmarks_service.db import db, db_config
+    from bookmark_service.db import db, db_config
     application.config['RESTPLUS_MASK_SWAGGER'] = False
     application.config.update(db_config)
     db.init_app(application)

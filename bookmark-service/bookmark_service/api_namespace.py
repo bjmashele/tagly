@@ -51,9 +51,9 @@ class MeBookmarkListCreate(Resource):
         args = authentication_parser.parse_args()
         username = authentication_header_parser(args['Authorization'])
 
-        bookmarks = (bookmarkModel
+        bookmarks = (BookmarkModel
                      .query
-                     .filter(bookmarkModel.username == username)
+                     .filter(BookmarkModel.username == username)
                      .order_by('id')
                      .all())
         return bookmarks
@@ -68,7 +68,7 @@ class MeBookmarkListCreate(Resource):
         args = bookmark_parser.parse_args()
         username = authentication_header_parser(args['Authorization'])
 
-        new_bookmark = bookmarkModel(username=username,
+        new_bookmark = BookmarkModel(username=username,
                                      text=args['text'],
                                      timestamp=datetime.utcnow())
         db.session.add(new_bookmark)
@@ -84,19 +84,16 @@ class BookmarkList(Resource):
 
     @api_namespace.doc('list_bookmarks')
     @api_namespace.marshal_with(bookmark_model, as_list=True)
-    @api_namespace.expect(search_parser)
     def get(self):
         '''
         Retrieves all the bookmarks
         '''
         args = search_parser.parse_args()
         search_param = args['search']
-        query = bookmarkModel.query
-        if search_param:
-            param = f'%{search_param}%'
-            query = (query.filter(bookmarkModel.text.ilike(param)))
-            # Old code, that it's not case insensitive in postgreSQL
-            # query = (query.filter(bookmarkModel.text.contains(search_param)))
+        query = BookmarkModel.query
+
+        # Old code, that it's not case insensitive in postgreSQL
+        # query = (query.filter(bookmarkModel.text.contains(search_param)))
 
         query = query.order_by('id')
         bookmarks = query.all()
@@ -113,7 +110,7 @@ class BookmarksRetrieve(Resource):
         '''
         Retrieve a bookmark
         '''
-        bookmark = bookmarkModel.query.get(bookmark_id)
+        bookmark = BookmarkModel.query.get(bookmark_id)
         if not bookmark:
             # The bookmark is not present
             return '', http.client.NOT_FOUND
