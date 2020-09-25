@@ -4,6 +4,7 @@ from flask_restplus import Namespace, Resource, fields
 from bookmark_service import config
 from bookmark_service.models import BookmarkModel
 from bookmark_service.models import TagModel
+from bookmark_service.models import UserModel
 from bookmark_service.token_validation import validate_token_header
 from bookmark_service.db import db
 from flask import abort
@@ -33,6 +34,12 @@ tag_parser = authentication_parser.copy()
 tag_parser.add_argument('name', type=str, required=True,
                              help='Name of the tag')
 
+login_parser = authentication_parser.copy()
+login_parser.add_argument('username', type=str, required=True,
+                             help='Must have username')
+login_parser.add_argument('password', type=str, required=True,
+                             help='Must have password')
+
 bookmarkModelSchema = {
     'id': fields.Integer(),
     'username': fields.String(),
@@ -43,11 +50,20 @@ bookmarkModelSchema = {
 
 tagModelSchema = {
     'id': fields.Integer(),
+    'username': fields.String(),
     'name':fields.String(),  
+}
+
+userModelSchema = {
+    'id': fields.Integer(),
+    'username': fields.String(),
+    'password': fields.String(),
 }
 
 bookmark_model = api_namespace.model('bookmark', bookmarkModelSchema)
 tag_model = api_namespace.model('tag', tagModelSchema)
+user_mode = api_namespace.model('user', userModelSchema)
+
 
 @api_namespace.route('/me/bookmarks/')
 class MeBookmarkListCreate(Resource):
@@ -168,3 +184,33 @@ class MeTagListCreate(Resource):
         result = api_namespace.marshal(new_tag, tag_model)
 
         return result, http.client.CREATED@api_namespace.route('/me/tags/')
+
+#User Login
+@api_namespace.route('/login/')
+class UserLogin(Resource):
+
+    @api_namespace.doc('login')
+    @api_namespace.expect(login_parser)
+   
+    def post(self):
+        '''
+        Login and return Authorization header
+        '''
+        args = login_parser.parse_args()
+        
+
+        user = (UserModel
+                     .query
+                     .filter(UserModel.username == args['username'])
+                     .first())
+        # validate user creds
+        if not user:
+            return ' ', http.client.UNAUTHORIZED
+        
+        if user.password != args['password']:
+            return ' ',http.client.UNAUTHORIZED
+
+        # if user creds are valid
+        header = generate_token_header(user.name, config.PRIVATE_KEY)
+        return {'Autorized': heade}, http.client.OK
+        
