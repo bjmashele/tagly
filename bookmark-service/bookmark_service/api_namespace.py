@@ -3,6 +3,7 @@ from datetime import datetime
 from flask_restplus import Namespace, Resource, fields
 from bookmark_service import config
 from bookmark_service.models import BookmarkModel
+from bookmark_service.models import TagModel
 from bookmark_service.token_validation import validate_token_header
 from bookmark_service.db import db
 from flask import abort
@@ -28,15 +29,25 @@ bookmark_parser = authentication_parser.copy()
 bookmark_parser.add_argument('title', type=str, required=True,
                              help='Title of the bookmark')
 
-model = {
+tag_parser = authentication_parser.copy()
+tag_parser.add_argument('name', type=str, required=True,
+                             help='Name of the tag')
+
+bookmarkModelSchema = {
     'id': fields.Integer(),
     'username': fields.String(),
     'title': fields.String(),
     'summary': fields.String(),
     'timestamp': fields.DateTime(),
 }
-bookmark_model = api_namespace.model('bookmark', model)
 
+tagModelSchema = {
+    'id': fields.Integer(),
+    'name':fields.String(),  
+}
+
+bookmark_model = api_namespace.model('bookmark', bookmarkModelSchema)
+tag_model = api_namespace.model('tag', tagModelSchema)
 
 @api_namespace.route('/me/bookmarks/')
 class MeBookmarkListCreate(Resource):
@@ -88,8 +99,8 @@ class BookmarkList(Resource):
         '''
         Retrieves all the bookmarks
         '''
-        args = search_parser.parse_args()
-        search_param = args['search']
+        
+        
         query = BookmarkModel.query
 
         # Old code, that it's not case insensitive in postgreSQL
@@ -116,3 +127,44 @@ class BookmarksRetrieve(Resource):
             return '', http.client.NOT_FOUND
 
         return bookmark
+
+#Tags
+@api_namespace.route('/me/tags/')
+class MeTagListCreate(Resource):
+
+    @api_namespace.doc('list_tags')
+    @api_namespace.expect(authentication_parser)
+    @api_namespace.marshal_with(tag_model, as_list=True)
+    def get(self):
+        '''
+        Retrieves all the tags
+        '''
+        args = authentication_parser.parse_args()
+        username = authentication_header_parser(args['Authorization'])
+
+        tags = (TagModel
+                     .query
+                     .filter(TagModel.username == username)
+                     .order_by('id')
+                     .all())
+        return tags
+
+    @api_namespace.doc('create_tag')
+    @api_namespace.expect(tag_parser)
+    @api_namespace.marshal_with(tag_model, code=http.client.CREATED)
+    def post(self):
+        '''
+        Create a new tag
+        '''
+        args = bookmark_parser.parse_args()
+        username = authentication_header_parser(args['Authorization'])
+
+        new_tag = TagModel(username=username,
+                                     name=args['name'],
+                                     timestamp=datetime.utcnow())
+        db.session.add(new_tag)
+        db.session.commit()
+
+        result = api_namespace.marshal(new_tag, tag_model)
+
+        return result, http.client.CREATED@api_namespace.route('/me/tags/')
