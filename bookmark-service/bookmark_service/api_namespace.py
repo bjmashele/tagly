@@ -6,6 +6,7 @@ from bookmark_service.models import BookmarkModel
 from bookmark_service.models import TagModel
 from bookmark_service.models import UserModel
 from bookmark_service.token_validation import validate_token_header
+from bookmark_service.token_validation import generate_token_header
 from bookmark_service.db import db
 from flask import abort
 
@@ -212,5 +213,4 @@ class UserLogin(Resource):
 
         # if user creds are valid
         header = generate_token_header(user.name, config.PRIVATE_KEY)
-        return {'Autorized': heade}, http.client.OK
-        
+        return {'Authorized': header}, http.client.OK
