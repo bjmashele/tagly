@@ -46,6 +46,7 @@ bookmarkModelSchema = {
     'username': fields.String(),
     'title': fields.String(),
     'summary': fields.String(),
+    'tags': fields.String(),
     'timestamp': fields.DateTime(),
 }
 
