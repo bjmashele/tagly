@@ -25,5 +25,6 @@ class LinkSchema(ModelSchema):
         sqla_session = db.session
     id = fields.Number(dump_only=True)
     title= fields.String(required=True)
+    url_string = fields.String(required=True)
     summary=fields.String()
-    user_id = fields.Integer(required=True)
+    user_id = fields.Integer()
