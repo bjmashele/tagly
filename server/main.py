@@ -2,8 +2,15 @@ import os
 from flask import Flask
 from flask import jsonify
 from api.config.config import ProductionConfig, TestingConfig, DevelopmentConfig
+from api.utils.database import db
 
-app = Flask(__name__)
+def create_app(config):
+    app = Flask(__name__)
+    app.config.from_object(config)
+    db.init_app(app)
+    with app.app_context():
+        db.create_all()
+    return app
 
 if os.environ.get("WORK_ENV") == "PROD":
     app_config = ProductionConfig
