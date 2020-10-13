@@ -1,14 +1,14 @@
-from api.utils.database import _db
+from api.utils.database import db
 from marshmallow_sqlalchemy import ModelSchema
 from marshmallow import fields
 
 class Link(db.Model):
     __tablemane__= 'links'
-    id = db.Column(db.Interger, primary_key=True, autoincrement=True)
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     title = db.Column(db.String(50))
     url_string = db.Column(db.String(100))
     summary = db.Column(db.String(150))
-    user_id = db.Column(db.Interger, db.ForeignKey('users.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, title, url_string, user_id, summary=None):
         self.title = title
