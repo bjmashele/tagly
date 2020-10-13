@@ -1,11 +1,12 @@
 import os
-from flask import Flask
+from flask import Flask, logging
 from flask import jsonify
 from api.config.config import ProductionConfig, TestingConfig, DevelopmentConfig
 from api.utils.database import db
 from api.utils.responses import response_with
 import api.utils.responses as resp
 from api.routes.users import user_routes
+from api.routes.links import link_routes
 
 app = Flask(__name__)
 
@@ -22,7 +23,7 @@ db.init_app(app)
 with app.app_context():
     db.create_all()
 app.register_blueprint(user_routes, url_prefix='/api/users')
-
+app.register_blueprint(link_routes, url_prefix='/api/links')
 
 # GLOBAL HTTP CONFIGURATIONS
 @app.after_request

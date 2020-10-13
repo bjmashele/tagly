@@ -14,5 +14,8 @@ class DevelopmentConfig(Config):
 
 class TestingConfig(Config):
     TESTING = True
-    SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://bjmashele:securep@wd@localhost:5432/bjmasheledb"
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///sqlite3.db'
     SQLALCHEMY_ECHO = False
+
+# Connection string for PosgreSQL
+# "postgresql+psycopg2://bjmashele:securep@wd@localhost:5432/bjmasheledb"

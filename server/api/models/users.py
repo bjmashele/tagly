@@ -4,11 +4,12 @@ from marshmallow import fields
 from api.models.links import LinkSchema
 
 class User(db.Model):
-    __tablemane__= 'users'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    username = db.Column(db.String(50))
+    __tablemane__= 'user'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(120), unique=True, nullable=False)
+    password = db.Column(db.String(120), nullable=False)
     created = db.Column(db.DateTime, server_default=db.func.now())
-    links = db.relationship('Link', backref='User', cascade="all, delete-orphan")
+    #links = db.relationship('Link', backref='User', cascade="all, delete-orphan")
 
     def __init__(self, username, links):
         self.username = username
@@ -18,11 +19,28 @@ class User(db.Model):
         db.session.add(self)
         db.session.commit()
         return self
+
+
+@classmethod
+def find_by_username(cls, username):
+    return cls.query.filter_by(username=username).first()
+
+
+@staticmethod
+def generate_hash(password):
+    return sha256.hash(password)
+
+
+@staticmethod
+def verify_hash(password, hash):
+    return sha256.verify(password, hash)
+
+
 class UserSchema(ModelSchema):
     class Meta(ModelSchema.Meta):
-        model=User
+        model = User
         sqla_session = db.session
+
     id = fields.Number(dump_only=True)
-    username= fields.String(required=True)
-    created = fields.String(dump_only=True)
-    links = fields.Nested(LinkSchema, many=True, only=['title', 'url_string', 'id'])
+    username = fields.String(required=True)
+    email = fields.String(required=True)
